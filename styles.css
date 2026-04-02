@@ -136,8 +136,8 @@ body::before {
 }
 
 .nav-wordmark {
-  max-width: 340px;
-  max-height: 72px;
+  max-width: 430px;
+  max-height: 90px;
   width: auto;
   height: auto;
   object-fit: contain;
@@ -386,6 +386,14 @@ h1 {
   margin: 0;
 }
 
+.viewer-title {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1 1 auto;
+}
+
 .panel-note {
   color: var(--muted);
   font-weight: 700;
@@ -459,7 +467,7 @@ h1 {
 
 .materials-layout {
   display: grid;
-  grid-template-columns: minmax(320px, 420px) minmax(0, 1fr);
+  grid-template-columns: minmax(280px, 360px) minmax(0, 1.45fr);
   gap: 22px;
 }
 
@@ -521,6 +529,9 @@ h1 {
   color: var(--brand-deep);
   font: inherit;
   cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .materials-file-button:hover {
@@ -529,11 +540,17 @@ h1 {
 
 .materials-viewer {
   width: 100%;
-  min-height: calc(70vh - 88px);
+  min-height: calc(78vh - 88px);
   margin-top: 22px;
   border: 1px solid var(--line);
   border-radius: 16px;
   background: #fff;
+}
+
+.viewer-status {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .readme-shell {
@@ -713,7 +730,7 @@ h1 {
   }
 
   .nav-wordmark {
-    max-width: 220px;
+    max-width: 280px;
   }
 
   .site-nav {

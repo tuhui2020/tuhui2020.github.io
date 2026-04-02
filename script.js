@@ -229,6 +229,28 @@ function openMaterialInViewer(node) {
   viewer.src = node.url;
 }
 
+function bindViewerFullscreen() {
+  const button = document.getElementById("viewer-fullscreen");
+  const viewer = document.getElementById("materials-viewer");
+
+  if (!button || !viewer) {
+    return;
+  }
+
+  button.addEventListener("click", async () => {
+    try {
+      if (document.fullscreenElement === viewer) {
+        await document.exitFullscreen();
+        return;
+      }
+
+      await viewer.requestFullscreen();
+    } catch (error) {
+      console.error(error);
+    }
+  });
+}
+
 function renderMaterialsNode(node) {
   if (node.type === "file") {
     const safeNode = encodeURIComponent(JSON.stringify({
@@ -288,6 +310,7 @@ async function loadMaterials() {
     status.textContent = "";
     root.innerHTML = `<ul class="materials-list root">${nodes.map(renderMaterialsNode).join("")}</ul>`;
     bindMaterialsViewer();
+    bindViewerFullscreen();
   } catch (error) {
     status.textContent = "资料目录读取失败。";
     root.innerHTML = "";
