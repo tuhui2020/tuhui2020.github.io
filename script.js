@@ -1,15 +1,4 @@
-﻿const GITHUB_USER = "tuhui2020";
-const EXTERNAL_PROJECTS = [
-  {
-    name: "示例外部项目",
-    owner: "octocat",
-    source: "GitHub / octocat",
-    description: "这里用于展示其他人的项目。你可以把它改成你想引用的仓库。",
-    html_url: "https://github.com/octocat/Hello-World",
-  },
-];
-
-async function loadSharedNav() {
+﻿const GITHUB_USER = "tuhui2020";`r`n`r`nasync function loadSharedNav() {
   const mount = document.querySelector("[data-include='nav']");
   if (!mount) {
     return;
@@ -35,7 +24,7 @@ async function loadSharedNav() {
           </a>
           <nav class="site-nav" aria-label="主导航">
             <a href="index.html" data-nav="home">主页面</a>
-            <a href="projects.html" data-nav="projects">章节</a>
+            <a href="projects.html" data-nav="projects">项目</a>
             <a href="resources.html" data-nav="resources">资料</a>
           </nav>
         </div>
@@ -177,42 +166,6 @@ function renderRepos(repos) {
       </article>
     `;
   }).join("");
-}
-
-function renderExternalProjects(projects) {
-  const grid = document.getElementById("other-repo-grid");
-  const status = document.getElementById("other-repo-status");
-
-  if (!grid || !status) {
-    return;
-  }
-
-  if (!Array.isArray(projects) || projects.length === 0) {
-    status.textContent = "还没有添加其他人的项目。";
-    grid.innerHTML = "";
-    return;
-  }
-
-  status.textContent = `已整理 ${projects.length} 个其他人的项目。`;
-
-  grid.innerHTML = projects.map((project) => `
-    <article class="repo-card repo-card-external">
-      <div class="repo-card-top">
-        <div>
-          <h3>${project.name}</h3>
-          <p>${project.description || "这个外部项目暂时没有填写说明。"}</p>
-        </div>
-        <span class="repo-badge source">来源</span>
-      </div>
-      <div class="repo-meta">
-        <span>作者 ${project.owner || "未知作者"}</span>
-        <span>来源 ${project.source || "未标注"}</span>
-      </div>
-      <div class="repo-links">
-        <a class="button primary small" href="${project.html_url}" target="_blank" rel="noreferrer">项目地址</a>
-      </div>
-    </article>
-  `).join("");
 }
 
 function openMaterialInViewer(node) {
@@ -407,7 +360,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   if (document.body.dataset.page === "projects") {
     loadRepos();
-    renderExternalProjects(EXTERNAL_PROJECTS);
   }
 
   if (document.body.dataset.page === "readme") {
@@ -419,3 +371,4 @@ document.addEventListener("DOMContentLoaded", async () => {
     loadMaterials();
   }
 });
+

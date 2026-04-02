@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Wolfox | 章节</title>
-  <meta name="description" content="展示 tuhui2020 的项目章节。">
+  <title>Wolfox | 项目</title>
+  <meta name="description" content="展示 tuhui2020 的 GitHub 项目。">
   <link rel="preconnect" href="https://api.github.com">
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -18,34 +18,17 @@
       </div>
 
       <section class="page-header">
-        <p class="eyebrow">Chapters</p>
-        <h1>章节与项目</h1>
-        <p class="section-copy">
-          这里分成“我的项目”和“其他人的项目”两个区域。我的项目会自动读取 GitHub 仓库，其他人的项目会标记来源信息。
-        </p>
+        <p class="eyebrow">Projects</p>
+        <h1>项目</h1>
       </section>
 
-      <nav class="page-nav" aria-label="项目页内导航">
-        <a href="#my-projects">我的项目</a>
-        <a href="#other-projects">其他人的项目</a>
-      </nav>
-
-      <section id="my-projects" class="repo-panel">
+      <section class="repo-panel">
         <div class="repo-panel-head">
-          <h2>我的项目</h2>
+          <h2>GitHub</h2>
           <a class="text-link" href="https://github.com/tuhui2020" target="_blank" rel="noreferrer">查看 GitHub 主页</a>
         </div>
         <div id="repo-status" class="repo-status" aria-live="polite">正在读取 GitHub 项目...</div>
         <div id="repo-grid" class="repo-grid" aria-live="polite"></div>
-      </section>
-
-      <section id="other-projects" class="repo-panel">
-        <div class="repo-panel-head">
-          <h2>其他人的项目</h2>
-          <span class="panel-note">带有来源标记</span>
-        </div>
-        <div id="other-repo-status" class="repo-status" aria-live="polite">正在整理其他人的项目...</div>
-        <div id="other-repo-grid" class="repo-grid" aria-live="polite"></div>
       </section>
     </main>
   </div>
