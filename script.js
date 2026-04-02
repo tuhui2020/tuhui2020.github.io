@@ -231,23 +231,29 @@ function openMaterialInViewer(node) {
 
 function bindViewerFullscreen() {
   const button = document.getElementById("viewer-fullscreen");
-  const viewer = document.getElementById("materials-viewer");
+  const viewerPanel = document.getElementById("viewer-panel");
 
-  if (!button || !viewer) {
+  if (!button || !viewerPanel) {
     return;
   }
 
   button.addEventListener("click", async () => {
     try {
-      if (document.fullscreenElement === viewer) {
+      if (document.fullscreenElement === viewerPanel) {
         await document.exitFullscreen();
+        button.textContent = "全屏";
         return;
       }
 
-      await viewer.requestFullscreen();
+      await viewerPanel.requestFullscreen();
+      button.textContent = "退出全屏";
     } catch (error) {
       console.error(error);
     }
+  });
+
+  document.addEventListener("fullscreenchange", () => {
+    button.textContent = document.fullscreenElement === viewerPanel ? "退出全屏" : "全屏";
   });
 }
 
@@ -310,7 +316,6 @@ async function loadMaterials() {
     status.textContent = "";
     root.innerHTML = `<ul class="materials-list root">${nodes.map(renderMaterialsNode).join("")}</ul>`;
     bindMaterialsViewer();
-    bindViewerFullscreen();
   } catch (error) {
     status.textContent = "资料目录读取失败。";
     root.innerHTML = "";
@@ -410,6 +415,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   if (document.body.dataset.page === "resources") {
+    bindViewerFullscreen();
     loadMaterials();
   }
 });
