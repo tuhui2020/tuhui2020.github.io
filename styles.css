@@ -1,4 +1,4 @@
-:root {
+﻿:root {
   --bg: #f4efe7;
   --bg-accent: #efe3d1;
   --surface: rgba(255, 252, 246, 0.82);
@@ -73,9 +73,9 @@ body::before {
 }
 
 .site-header {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
   align-items: center;
-  justify-content: space-between;
   gap: 20px;
   padding: 14px 18px;
   border: 1px solid var(--line);
@@ -151,6 +151,7 @@ body::before {
 .site-nav {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
   flex-wrap: wrap;
 }
@@ -168,6 +169,38 @@ body::before {
 .site-nav a.active {
   color: var(--brand-deep);
   background: rgba(181, 81, 45, 0.12);
+}
+
+.site-author {
+  justify-self: end;
+  color: var(--muted);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.page-nav {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 22px;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: rgba(255, 250, 242, 0.7);
+  box-shadow: var(--shadow);
+}
+
+.page-nav a {
+  text-decoration: none;
+  color: var(--brand-deep);
+  font-weight: 700;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: rgba(181, 81, 45, 0.1);
+}
+
+.page-nav a:hover {
+  background: rgba(181, 81, 45, 0.18);
 }
 
 main {
@@ -197,6 +230,7 @@ main {
     linear-gradient(180deg, #fff, #f8efe4);
   border: 1px solid var(--line);
   box-shadow: var(--shadow);
+  text-align: center;
 }
 
 .eyebrow {
@@ -210,7 +244,7 @@ main {
 
 h1 {
   margin: 0;
-  max-width: 11ch;
+  max-width: none;
   font-size: clamp(2.8rem, 7vw, 5.8rem);
   line-height: 0.95;
 }
@@ -225,6 +259,7 @@ h1 {
 
 .hero-actions {
   display: flex;
+  justify-content: center;
   gap: 14px;
   margin-top: 28px;
   flex-wrap: wrap;
@@ -286,6 +321,9 @@ h1 {
 }
 
 .feature-card {
+  display: grid;
+  place-items: center;
+  min-height: 180px;
   padding: 26px;
   text-decoration: none;
   color: inherit;
@@ -297,18 +335,10 @@ h1 {
   border-color: rgba(181, 81, 45, 0.28);
 }
 
-.feature-index {
-  display: inline-block;
-  margin-bottom: 18px;
-  color: var(--brand);
-  font-weight: 800;
-  letter-spacing: 0.12em;
-}
-
 .feature-card h2,
 .content-card h2,
 .repo-card h3 {
-  margin: 0 0 10px;
+  margin: 0;
 }
 
 .feature-card p,
@@ -333,6 +363,10 @@ h1 {
   box-shadow: var(--shadow);
 }
 
+.repo-panel + .repo-panel {
+  margin-top: 24px;
+}
+
 .repo-panel-head {
   display: flex;
   align-items: center;
@@ -344,6 +378,11 @@ h1 {
 
 .repo-panel-head h2 {
   margin: 0;
+}
+
+.panel-note {
+  color: var(--muted);
+  font-weight: 700;
 }
 
 .text-link,
@@ -372,6 +411,10 @@ h1 {
   opacity: 0.8;
 }
 
+.repo-card-external {
+  border-style: dashed;
+}
+
 .repo-card-top {
   display: flex;
   align-items: flex-start;
@@ -388,6 +431,10 @@ h1 {
   font-size: 0.78rem;
   font-weight: 700;
   white-space: nowrap;
+}
+
+.repo-badge.source {
+  background: rgba(30, 26, 23, 0.1);
 }
 
 .repo-meta {
@@ -547,9 +594,11 @@ h1 {
 
 @media (max-width: 860px) {
   .site-header {
+    grid-template-columns: 1fr;
     border-radius: 28px;
     padding: 16px;
     position: static;
+    justify-items: center;
   }
 
   .site-shell {
@@ -566,15 +615,12 @@ h1 {
   .repo-grid {
     grid-template-columns: 1fr;
   }
-
-  h1 {
-    max-width: none;
-  }
 }
 
 @media (max-width: 620px) {
   .brand {
     width: 100%;
+    justify-content: center;
   }
 
   .site-nav {
@@ -586,6 +632,10 @@ h1 {
     text-align: center;
   }
 
+  .site-author {
+    justify-self: center;
+  }
+
   .repo-panel {
     padding: 20px;
   }
@@ -594,4 +644,52 @@ h1 {
   .readme-content {
     padding: 18px;
   }
+}
+
+.materials-root {
+  margin-top: 22px;
+}
+
+.materials-list {
+  list-style: none;
+  margin: 0;
+  padding-left: 18px;
+}
+
+.materials-list.root {
+  padding-left: 0;
+}
+
+.materials-item + .materials-item {
+  margin-top: 8px;
+}
+
+.materials-item details {
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgba(255, 252, 246, 0.72);
+}
+
+.materials-item summary {
+  cursor: pointer;
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.materials-item.file {
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: rgba(255, 252, 246, 0.72);
+}
+
+.materials-link {
+  color: var(--brand-deep);
+  text-decoration: none;
+  word-break: break-all;
+}
+
+.materials-link:hover {
+  text-decoration: underline;
 }

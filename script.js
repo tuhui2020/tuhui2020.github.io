@@ -1,4 +1,13 @@
-const GITHUB_USER = "tuhui2020";
+﻿const GITHUB_USER = "tuhui2020";
+const EXTERNAL_PROJECTS = [
+  {
+    name: "示例外部项目",
+    owner: "octocat",
+    source: "GitHub / octocat",
+    description: "这里用于展示其他人的项目。你可以把它改成你想引用的仓库。",
+    html_url: "https://github.com/octocat/Hello-World",
+  },
+];
 
 async function loadSharedNav() {
   const mount = document.querySelector("[data-include='nav']");
@@ -25,6 +34,7 @@ async function loadSharedNav() {
           <a href="projects.html" data-nav="projects">章节</a>
           <a href="resources.html" data-nav="resources">资料</a>
         </nav>
+        <div class="site-author">作者：涂Per</div>
       </header>
     `;
     console.error(error);
@@ -83,7 +93,7 @@ function renderRepos(repos) {
 
   status.textContent = `已读取到 ${repos.length} 个公开项目。`;
 
-  const cards = repos.map((repo) => {
+  grid.innerHTML = repos.map((repo) => {
     const description = repo.description || "这个项目暂时没有填写说明。";
     const language = repo.language || "未标注语言";
     const readmeUrl = `readme.html?repo=${encodeURIComponent(repo.name)}`;
@@ -108,11 +118,90 @@ function renderRepos(repos) {
         </div>
       </article>
     `;
-  });
-
-  grid.innerHTML = cards.join("");
+  }).join("");
 }
 
+function renderExternalProjects(projects) {
+  const grid = document.getElementById("other-repo-grid");
+  const status = document.getElementById("other-repo-status");
+
+  if (!grid || !status) {
+    return;
+  }
+
+  if (!Array.isArray(projects) || projects.length === 0) {
+    status.textContent = "还没有添加其他人的项目。";
+    grid.innerHTML = "";
+    return;
+  }
+
+  status.textContent = `已整理 ${projects.length} 个其他人的项目。`;
+
+  grid.innerHTML = projects.map((project) => `
+    <article class="repo-card repo-card-external">
+      <div class="repo-card-top">
+        <div>
+          <h3>${project.name}</h3>
+          <p>${project.description || "这个外部项目暂时没有填写说明。"}</p>
+        </div>
+        <span class="repo-badge source">来源</span>
+      </div>
+      <div class="repo-meta">
+        <span>作者 ${project.owner || "未知作者"}</span>
+        <span>来源 ${project.source || "未标注"}</span>
+      </div>
+      <div class="repo-links">
+        <a class="button primary small" href="${project.html_url}" target="_blank" rel="noreferrer">项目地址</a>
+      </div>
+    </article>
+  `).join("");
+}
+
+
+function renderMaterialsNode(node) {
+  if (node.type === "file") {
+    return `
+      <li class="materials-item file">
+        <a class="materials-link" href="${node.url}" target="_blank" rel="noreferrer">${node.name}</a>
+      </li>
+    `;
+  }
+
+  const children = Array.isArray(node.children) ? node.children : [];
+  const childMarkup = children.map(renderMaterialsNode).join("");
+  return `
+    <li class="materials-item folder">
+      <details open>
+        <summary>${node.name}</summary>
+        ${childMarkup ? `<ul class="materials-list">${childMarkup}</ul>` : ""}
+      </details>
+    </li>
+  `;
+}
+
+async function loadMaterials() {
+  const status = document.getElementById("materials-status");
+  const root = document.getElementById("materials-root");
+
+  if (!status || !root) {
+    return;
+  }
+
+  try {
+    const response = await fetch("materials-manifest.json");
+    if (!response.ok) {
+      throw new Error(`资料目录请求失败: ${response.status}`);
+    }
+
+    const tree = await response.json();
+    status.textContent = "";
+    root.innerHTML = `<ul class="materials-list root">${renderMaterialsNode(tree)}</ul>`;
+  } catch (error) {
+    status.textContent = "资料目录读取失败。";
+    root.innerHTML = "";
+    console.error(error);
+  }
+}
 async function loadRepos() {
   const grid = document.getElementById("repo-grid");
   const status = document.getElementById("repo-status");
@@ -197,9 +286,15 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   if (document.body.dataset.page === "projects") {
     loadRepos();
+    renderExternalProjects(EXTERNAL_PROJECTS);
   }
 
   if (document.body.dataset.page === "readme") {
     loadReadmePage();
   }
+
+  if (document.body.dataset.page === "resources") {
+    loadMaterials();
+  }
 });
+

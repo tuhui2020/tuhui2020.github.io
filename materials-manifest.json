@@ -1,0 +1,317 @@
+﻿{
+    "name":  "materials",
+    "type":  "directory",
+    "path":  "materials",
+    "url":  "materials",
+    "children":  [
+                     {
+                         "name":  "论文",
+                         "type":  "directory",
+                         "path":  "materials/论文",
+                         "url":  "materials/%E8%AE%BA%E6%96%87",
+                         "children":  [
+                                          {
+                                              "name":  "步长相关",
+                                              "type":  "directory",
+                                              "path":  "materials/论文/步长相关",
+                                              "url":  "materials/%E8%AE%BA%E6%96%87/%E6%AD%A5%E9%95%BF%E7%9B%B8%E5%85%B3",
+                                              "children":  [
+                                                               {
+                                                                   "name":  "A motion planning method for winter jujube harvesting robotic arm based on optimized Informed-RRT algorithm.pdf",
+                                                                   "type":  "file",
+                                                                   "path":  "materials/论文/步长相关/A motion planning method for winter jujube harvesting robotic arm based on optimized Informed-RRT algorithm.pdf",
+                                                                   "url":  "materials/%E8%AE%BA%E6%96%87/%E6%AD%A5%E9%95%BF%E7%9B%B8%E5%85%B3/A%20motion%20planning%20method%20for%20winter%20jujube%20harvesting%20robotic%20arm%20based%20on%20optimized%20Informed-RRT%20algorithm.pdf",
+                                                                   "children":  [
+
+                                                                                ]
+                                                               },
+                                                               {
+                                                                   "name":  "Adaptive Step RRT-Based Method for Path Planning of Tea-Picking Robotic Arm.pdf",
+                                                                   "type":  "file",
+                                                                   "path":  "materials/论文/步长相关/Adaptive Step RRT-Based Method for Path Planning of Tea-Picking Robotic Arm.pdf",
+                                                                   "url":  "materials/%E8%AE%BA%E6%96%87/%E6%AD%A5%E9%95%BF%E7%9B%B8%E5%85%B3/Adaptive%20Step%20RRT-Based%20Method%20for%20Path%20Planning%20of%20Tea-Picking%20Robotic%20Arm.pdf",
+                                                                   "children":  [
+
+                                                                                ]
+                                                               },
+                                                               {
+                                                                   "name":  "An improved RRT-Connect path planning algorithm of robotic arm for automatic sampling of exhaust emission detection in Industry 4.0.pdf",
+                                                                   "type":  "file",
+                                                                   "path":  "materials/论文/步长相关/An improved RRT-Connect path planning algorithm of robotic arm for automatic sampling of exhaust emission detection in Industry 4.0.pdf",
+                                                                   "url":  "materials/%E8%AE%BA%E6%96%87/%E6%AD%A5%E9%95%BF%E7%9B%B8%E5%85%B3/An%20improved%20RRT-Connect%20path%20planning%20algorithm%20of%20robotic%20arm%20for%20automatic%20sampling%20of%20exhaust%20emission%20detection%20in%20Industry%204.0.pdf",
+                                                                   "children":  [
+
+                                                                                ]
+                                                               },
+                                                               {
+                                                                   "name":  "Research on Obstacle Avoidance Path Planning for Robotic Arms Using Improved RRT Algorithm.pdf",
+                                                                   "type":  "file",
+                                                                   "path":  "materials/论文/步长相关/Research on Obstacle Avoidance Path Planning for Robotic Arms Using Improved RRT Algorithm.pdf",
+                                                                   "url":  "materials/%E8%AE%BA%E6%96%87/%E6%AD%A5%E9%95%BF%E7%9B%B8%E5%85%B3/Research%20on%20Obstacle%20Avoidance%20Path%20Planning%20for%20Robotic%20Arms%20Using%20Improved%20RRT%20Algorithm.pdf",
+                                                                   "children":  [
+
+                                                                                ]
+                                                               },
+                                                               {
+                                                                   "name":  "Research on robotic arm path planning based on an improved bidirectional RRT algorithm.pdf",
+                                                                   "type":  "file",
+                                                                   "path":  "materials/论文/步长相关/Research on robotic arm path planning based on an improved bidirectional RRT algorithm.pdf",
+                                                                   "url":  "materials/%E8%AE%BA%E6%96%87/%E6%AD%A5%E9%95%BF%E7%9B%B8%E5%85%B3/Research%20on%20robotic%20arm%20path%20planning%20based%20on%20an%20improved%20bidirectional%20RRT%20algorithm.pdf",
+                                                                   "children":  [
+
+                                                                                ]
+                                                               },
+                                                               {
+                                                                   "name":  "Robotic Arm Obstacle Avoidance Path Planning based on Improved RRT algorithm.pdf",
+                                                                   "type":  "file",
+                                                                   "path":  "materials/论文/步长相关/Robotic Arm Obstacle Avoidance Path Planning based on Improved RRT algorithm.pdf",
+                                                                   "url":  "materials/%E8%AE%BA%E6%96%87/%E6%AD%A5%E9%95%BF%E7%9B%B8%E5%85%B3/Robotic%20Arm%20Obstacle%20Avoidance%20Path%20Planning%20based%20on%20Improved%20RRT%20algorithm.pdf",
+                                                                   "children":  [
+
+                                                                                ]
+                                                               },
+                                                               {
+                                                                   "name":  "Variable_Sampling_Area_RRT_Algorithm_Based_on_Limiting_Joint_Angle_for_Robotic_Arm_Path_Planning.pdf",
+                                                                   "type":  "file",
+                                                                   "path":  "materials/论文/步长相关/Variable_Sampling_Area_RRT_Algorithm_Based_on_Limiting_Joint_Angle_for_Robotic_Arm_Path_Planning.pdf",
+                                                                   "url":  "materials/%E8%AE%BA%E6%96%87/%E6%AD%A5%E9%95%BF%E7%9B%B8%E5%85%B3/Variable_Sampling_Area_RRT_Algorithm_Based_on_Limiting_Joint_Angle_for_Robotic_Arm_Path_Planning.pdf",
+                                                                   "children":  [
+
+                                                                                ]
+                                                               },
+                                                               {
+                                                                   "name":  "基于改进P-RRT算法的碎矿机械臂避障路径规划研究_杨丽荣.pdf",
+                                                                   "type":  "file",
+                                                                   "path":  "materials/论文/步长相关/基于改进P-RRT算法的碎矿机械臂避障路径规划研究_杨丽荣.pdf",
+                                                                   "url":  "materials/%E8%AE%BA%E6%96%87/%E6%AD%A5%E9%95%BF%E7%9B%B8%E5%85%B3/%E5%9F%BA%E4%BA%8E%E6%94%B9%E8%BF%9BP-RRT%E7%AE%97%E6%B3%95%E7%9A%84%E7%A2%8E%E7%9F%BF%E6%9C%BA%E6%A2%B0%E8%87%82%E9%81%BF%E9%9A%9C%E8%B7%AF%E5%BE%84%E8%A7%84%E5%88%92%E7%A0%94%E7%A9%B6_%E6%9D%A8%E4%B8%BD%E8%8D%A3.pdf",
+                                                                   "children":  [
+
+                                                                                ]
+                                                               },
+                                                               {
+                                                                   "name":  "基于改进RRT算法的多关节机械臂路径规划方法研究_梁喜凤.pdf",
+                                                                   "type":  "file",
+                                                                   "path":  "materials/论文/步长相关/基于改进RRT算法的多关节机械臂路径规划方法研究_梁喜凤.pdf",
+                                                                   "url":  "materials/%E8%AE%BA%E6%96%87/%E6%AD%A5%E9%95%BF%E7%9B%B8%E5%85%B3/%E5%9F%BA%E4%BA%8E%E6%94%B9%E8%BF%9BRRT%E7%AE%97%E6%B3%95%E7%9A%84%E5%A4%9A%E5%85%B3%E8%8A%82%E6%9C%BA%E6%A2%B0%E8%87%82%E8%B7%AF%E5%BE%84%E8%A7%84%E5%88%92%E6%96%B9%E6%B3%95%E7%A0%94%E7%A9%B6_%E6%A2%81%E5%96%9C%E5%87%A4.pdf",
+                                                                   "children":  [
+
+                                                                                ]
+                                                               },
+                                                               {
+                                                                   "name":  "基于改进RRT算法的六自由度机械臂路径规划_李庸.pdf",
+                                                                   "type":  "file",
+                                                                   "path":  "materials/论文/步长相关/基于改进RRT算法的六自由度机械臂路径规划_李庸.pdf",
+                                                                   "url":  "materials/%E8%AE%BA%E6%96%87/%E6%AD%A5%E9%95%BF%E7%9B%B8%E5%85%B3/%E5%9F%BA%E4%BA%8E%E6%94%B9%E8%BF%9BRRT%E7%AE%97%E6%B3%95%E7%9A%84%E5%85%AD%E8%87%AA%E7%94%B1%E5%BA%A6%E6%9C%BA%E6%A2%B0%E8%87%82%E8%B7%AF%E5%BE%84%E8%A7%84%E5%88%92_%E6%9D%8E%E5%BA%B8.pdf",
+                                                                   "children":  [
+
+                                                                                ]
+                                                               }
+                                                           ]
+                                          },
+                                          {
+                                              "name":  "分辨率规划",
+                                              "type":  "directory",
+                                              "path":  "materials/论文/分辨率规划",
+                                              "url":  "materials/%E8%AE%BA%E6%96%87/%E5%88%86%E8%BE%A8%E7%8E%87%E8%A7%84%E5%88%92",
+                                              "children":  [
+                                                               {
+                                                                   "name":  "A Sampling-Based Unfixed Orientation Search Method for Dual Manipulator Cooperative Manufacturing.pdf",
+                                                                   "type":  "file",
+                                                                   "path":  "materials/论文/分辨率规划/A Sampling-Based Unfixed Orientation Search Method for Dual Manipulator Cooperative Manufacturing.pdf",
+                                                                   "url":  "materials/%E8%AE%BA%E6%96%87/%E5%88%86%E8%BE%A8%E7%8E%87%E8%A7%84%E5%88%92/A%20Sampling-Based%20Unfixed%20Orientation%20Search%20Method%20for%20Dual%20Manipulator%20Cooperative%20Manufacturing.pdf",
+                                                                   "children":  [
+
+                                                                                ]
+                                                               },
+                                                               {
+                                                                   "name":  "Optimization for industrial robot joint movement in non-horizontal 3D printing application.pdf",
+                                                                   "type":  "file",
+                                                                   "path":  "materials/论文/分辨率规划/Optimization for industrial robot joint movement in non-horizontal 3D printing application.pdf",
+                                                                   "url":  "materials/%E8%AE%BA%E6%96%87/%E5%88%86%E8%BE%A8%E7%8E%87%E8%A7%84%E5%88%92/Optimization%20for%C2%A0industrial%20robot%20joint%20movement%20in%C2%A0non-horizontal%203D%20printing%20application.pdf",
+                                                                   "children":  [
+
+                                                                                ]
+                                                               }
+                                                           ]
+                                          },
+                                          {
+                                              "name":  "分层规划",
+                                              "type":  "directory",
+                                              "path":  "materials/论文/分层规划",
+                                              "url":  "materials/%E8%AE%BA%E6%96%87/%E5%88%86%E5%B1%82%E8%A7%84%E5%88%92",
+                                              "children":  [
+                                                               {
+                                                                   "name":  "A Hierarchical Motion Planning Method for Mobile Manipulator.pdf",
+                                                                   "type":  "file",
+                                                                   "path":  "materials/论文/分层规划/A Hierarchical Motion Planning Method for Mobile Manipulator.pdf",
+                                                                   "url":  "materials/%E8%AE%BA%E6%96%87/%E5%88%86%E5%B1%82%E8%A7%84%E5%88%92/A%20Hierarchical%20Motion%20Planning%20Method%20for%20Mobile%20Manipulator.pdf",
+                                                                   "children":  [
+
+                                                                                ]
+                                                               },
+                                                               {
+                                                                   "name":  "Redundancy-Based Motion Planning with Task Constraints for Robot Manipulators.pdf",
+                                                                   "type":  "file",
+                                                                   "path":  "materials/论文/分层规划/Redundancy-Based Motion Planning with Task Constraints for Robot Manipulators.pdf",
+                                                                   "url":  "materials/%E8%AE%BA%E6%96%87/%E5%88%86%E5%B1%82%E8%A7%84%E5%88%92/Redundancy-Based%20Motion%20Planning%20with%20Task%20Constraints%20for%20Robot%20Manipulators.pdf",
+                                                                   "children":  [
+
+                                                                                ]
+                                                               },
+                                                               {
+                                                                   "name":  "TORM_Fast_and_Accurate_Trajectory_Optimization_of_Redundant_Manipulator_given_an_End-Effector_Path.pdf",
+                                                                   "type":  "file",
+                                                                   "path":  "materials/论文/分层规划/TORM_Fast_and_Accurate_Trajectory_Optimization_of_Redundant_Manipulator_given_an_End-Effector_Path.pdf",
+                                                                   "url":  "materials/%E8%AE%BA%E6%96%87/%E5%88%86%E5%B1%82%E8%A7%84%E5%88%92/TORM_Fast_and_Accurate_Trajectory_Optimization_of_Redundant_Manipulator_given_an_End-Effector_Path.pdf",
+                                                                   "children":  [
+
+                                                                                ]
+                                                               }
+                                                           ]
+                                          },
+                                          {
+                                              "name":  "关节规划",
+                                              "type":  "directory",
+                                              "path":  "materials/论文/关节规划",
+                                              "url":  "materials/%E8%AE%BA%E6%96%87/%E5%85%B3%E8%8A%82%E8%A7%84%E5%88%92",
+                                              "children":  [
+                                                               {
+                                                                   "name":  "An_Adaptive_Stepsize_RRT_Planning_Algorithm_for_Open-Chain_Robots.pdf",
+                                                                   "type":  "file",
+                                                                   "path":  "materials/论文/关节规划/An_Adaptive_Stepsize_RRT_Planning_Algorithm_for_Open-Chain_Robots.pdf",
+                                                                   "url":  "materials/%E8%AE%BA%E6%96%87/%E5%85%B3%E8%8A%82%E8%A7%84%E5%88%92/An_Adaptive_Stepsize_RRT_Planning_Algorithm_for_Open-Chain_Robots.pdf",
+                                                                   "children":  [
+
+                                                                                ]
+                                                               },
+                                                               {
+                                                                   "name":  "Approaches_for_heuristically_biasing_RRT_growth.pdf",
+                                                                   "type":  "file",
+                                                                   "path":  "materials/论文/关节规划/Approaches_for_heuristically_biasing_RRT_growth.pdf",
+                                                                   "url":  "materials/%E8%AE%BA%E6%96%87/%E5%85%B3%E8%8A%82%E8%A7%84%E5%88%92/Approaches_for_heuristically_biasing_RRT_growth.pdf",
+                                                                   "children":  [
+
+                                                                                ]
+                                                               },
+                                                               {
+                                                                   "name":  "CHOMP_Gradient_optimization_techniques_for_efficient_motion_planning.pdf",
+                                                                   "type":  "file",
+                                                                   "path":  "materials/论文/关节规划/CHOMP_Gradient_optimization_techniques_for_efficient_motion_planning.pdf",
+                                                                   "url":  "materials/%E8%AE%BA%E6%96%87/%E5%85%B3%E8%8A%82%E8%A7%84%E5%88%92/CHOMP_Gradient_optimization_techniques_for_efficient_motion_planning.pdf",
+                                                                   "children":  [
+
+                                                                                ]
+                                                               },
+                                                               {
+                                                                   "name":  "Configuration Space Distance Fields for Manipulation Planning.pdf",
+                                                                   "type":  "file",
+                                                                   "path":  "materials/论文/关节规划/Configuration Space Distance Fields for Manipulation Planning.pdf",
+                                                                   "url":  "materials/%E8%AE%BA%E6%96%87/%E5%85%B3%E8%8A%82%E8%A7%84%E5%88%92/Configuration%20Space%20Distance%20Fields%20for%20Manipulation%20Planning.pdf",
+                                                                   "children":  [
+
+                                                                                ]
+                                                               },
+                                                               {
+                                                                   "name":  "Control_Framework_for_Trajectory_Planning_of_Soft_Manipulator_Using_Optimized_RRT_Algorithm.pdf",
+                                                                   "type":  "file",
+                                                                   "path":  "materials/论文/关节规划/Control_Framework_for_Trajectory_Planning_of_Soft_Manipulator_Using_Optimized_RRT_Algorithm.pdf",
+                                                                   "url":  "materials/%E8%AE%BA%E6%96%87/%E5%85%B3%E8%8A%82%E8%A7%84%E5%88%92/Control_Framework_for_Trajectory_Planning_of_Soft_Manipulator_Using_Optimized_RRT_Algorithm.pdf",
+                                                                   "children":  [
+
+                                                                                ]
+                                                               },
+                                                               {
+                                                                   "name":  "Randomized_path_planning_for_redundant_manipulators_without_inverse_kinematics.pdf",
+                                                                   "type":  "file",
+                                                                   "path":  "materials/论文/关节规划/Randomized_path_planning_for_redundant_manipulators_without_inverse_kinematics.pdf",
+                                                                   "url":  "materials/%E8%AE%BA%E6%96%87/%E5%85%B3%E8%8A%82%E8%A7%84%E5%88%92/Randomized_path_planning_for_redundant_manipulators_without_inverse_kinematics.pdf",
+                                                                   "children":  [
+
+                                                                                ]
+                                                               },
+                                                               {
+                                                                   "name":  "Real-time_obstacle_avoidance_for_manipulators_and_mobile_robots.pdf",
+                                                                   "type":  "file",
+                                                                   "path":  "materials/论文/关节规划/Real-time_obstacle_avoidance_for_manipulators_and_mobile_robots.pdf",
+                                                                   "url":  "materials/%E8%AE%BA%E6%96%87/%E5%85%B3%E8%8A%82%E8%A7%84%E5%88%92/Real-time_obstacle_avoidance_for_manipulators_and_mobile_robots.pdf",
+                                                                   "children":  [
+
+                                                                                ]
+                                                               }
+                                                           ]
+                                          },
+                                          {
+                                              "name":  "七轴",
+                                              "type":  "directory",
+                                              "path":  "materials/论文/七轴",
+                                              "url":  "materials/%E8%AE%BA%E6%96%87/%E4%B8%83%E8%BD%B4",
+                                              "children":  [
+                                                               {
+                                                                   "name":  "Analytical_Inverse_Kinematic_Computation_for_7-DOF_Redundant_Manipulators_With_Joint_Limits_and_Its_Application_to_Redundancy_Resolution.pdf",
+                                                                   "type":  "file",
+                                                                   "path":  "materials/论文/七轴/Analytical_Inverse_Kinematic_Computation_for_7-DOF_Redundant_Manipulators_With_Joint_Limits_and_Its_Application_to_Redundancy_Resolution.pdf",
+                                                                   "url":  "materials/%E8%AE%BA%E6%96%87/%E4%B8%83%E8%BD%B4/Analytical_Inverse_Kinematic_Computation_for_7-DOF_Redundant_Manipulators_With_Joint_Limits_and_Its_Application_to_Redundancy_Resolution.pdf",
+                                                                   "children":  [
+
+                                                                                ]
+                                                               },
+                                                               {
+                                                                   "name":  "Analytical_Inverse_Kinematics_and_Self-Motion_Application_for_7-DOF_Redundant_Manipulator.pdf",
+                                                                   "type":  "file",
+                                                                   "path":  "materials/论文/七轴/Analytical_Inverse_Kinematics_and_Self-Motion_Application_for_7-DOF_Redundant_Manipulator.pdf",
+                                                                   "url":  "materials/%E8%AE%BA%E6%96%87/%E4%B8%83%E8%BD%B4/Analytical_Inverse_Kinematics_and_Self-Motion_Application_for_7-DOF_Redundant_Manipulator.pdf",
+                                                                   "children":  [
+
+                                                                                ]
+                                                               },
+                                                               {
+                                                                   "name":  "Efficient Closed-Form Task Space Manipulability for a 7-DOF Serial Robot.pdf",
+                                                                   "type":  "file",
+                                                                   "path":  "materials/论文/七轴/Efficient Closed-Form Task Space Manipulability for a 7-DOF Serial Robot.pdf",
+                                                                   "url":  "materials/%E8%AE%BA%E6%96%87/%E4%B8%83%E8%BD%B4/Efficient%20Closed-Form%20Task%20Space%20Manipulability%20for%20a%207-DOF%20Serial%20Robot.pdf",
+                                                                   "children":  [
+
+                                                                                ]
+                                                               },
+                                                               {
+                                                                   "name":  "Inverse_kinematics_of_7-DOF_redundant_manipulators_with_arbitrary_offsets_based_on_augmented_Jacobian.pdf",
+                                                                   "type":  "file",
+                                                                   "path":  "materials/论文/七轴/Inverse_kinematics_of_7-DOF_redundant_manipulators_with_arbitrary_offsets_based_on_augmented_Jacobian.pdf",
+                                                                   "url":  "materials/%E8%AE%BA%E6%96%87/%E4%B8%83%E8%BD%B4/Inverse_kinematics_of_7-DOF_redundant_manipulators_with_arbitrary_offsets_based_on_augmented_Jacobian.pdf",
+                                                                   "children":  [
+
+                                                                                ]
+                                                               },
+                                                               {
+                                                                   "name":  "Redundancy parameterization and inverse kinematics of 7-DOF revolute manipulators.pdf",
+                                                                   "type":  "file",
+                                                                   "path":  "materials/论文/七轴/Redundancy parameterization and inverse kinematics of 7-DOF revolute manipulators.pdf",
+                                                                   "url":  "materials/%E8%AE%BA%E6%96%87/%E4%B8%83%E8%BD%B4/Redundancy%20parameterization%20and%20inverse%20kinematics%20of%207-DOF%20revolute%20manipulators.pdf",
+                                                                   "children":  [
+
+                                                                                ]
+                                                               },
+                                                               {
+                                                                   "name":  "Singularity-robust_task-priority_redundancy_resolution_for_real-time_kinematic_control_of_robot_manipulators.pdf",
+                                                                   "type":  "file",
+                                                                   "path":  "materials/论文/七轴/Singularity-robust_task-priority_redundancy_resolution_for_real-time_kinematic_control_of_robot_manipulators.pdf",
+                                                                   "url":  "materials/%E8%AE%BA%E6%96%87/%E4%B8%83%E8%BD%B4/Singularity-robust_task-priority_redundancy_resolution_for_real-time_kinematic_control_of_robot_manipulators.pdf",
+                                                                   "children":  [
+
+                                                                                ]
+                                                               }
+                                                           ]
+                                          },
+                                          {
+                                              "name":  "基于多智能体择优决策的机械臂多目标避障规划研究_王储.pdf",
+                                              "type":  "file",
+                                              "path":  "materials/论文/基于多智能体择优决策的机械臂多目标避障规划研究_王储.pdf",
+                                              "url":  "materials/%E8%AE%BA%E6%96%87/%E5%9F%BA%E4%BA%8E%E5%A4%9A%E6%99%BA%E8%83%BD%E4%BD%93%E6%8B%A9%E4%BC%98%E5%86%B3%E7%AD%96%E7%9A%84%E6%9C%BA%E6%A2%B0%E8%87%82%E5%A4%9A%E7%9B%AE%E6%A0%87%E9%81%BF%E9%9A%9C%E8%A7%84%E5%88%92%E7%A0%94%E7%A9%B6_%E7%8E%8B%E5%82%A8.pdf",
+                                              "children":  [
+
+                                                           ]
+                                          }
+                                      ]
+                     }
+                 ]
+}
