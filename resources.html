@@ -16,22 +16,22 @@
         <a class="button secondary" href="index.html">返回上一页</a>
       </div>
 
-      <section class="page-header">
-        <p class="eyebrow">Resources</p>
-        <h1>资料</h1>
-      </section>
+      <section class="materials-layout">
+        <section class="repo-panel materials-panel">
+          <div class="repo-panel-head">
+            <h2>资料</h2>
+          </div>
+          <div id="materials-status" class="repo-status" aria-live="polite">正在读取资料目录...</div>
+          <div id="materials-root" class="materials-root" aria-live="polite"></div>
+        </section>
 
-      <nav class="page-nav" aria-label="资料页内导航">
-        <a href="#materials-tree">目录</a>
-      </nav>
-
-      <section id="materials-tree" class="repo-panel">
-        <div class="repo-panel-head">
-          <h2>资料目录</h2>
-          <span class="panel-note">materials</span>
-        </div>
-        <div id="materials-status" class="repo-status" aria-live="polite">正在读取资料目录...</div>
-        <div id="materials-root" class="materials-root" aria-live="polite"></div>
+        <section class="repo-panel viewer-panel">
+          <div class="repo-panel-head">
+            <h2 id="viewer-title">阅读</h2>
+          </div>
+          <div id="viewer-status" class="repo-status">点击左侧 PDF 或文件开始阅读。</div>
+          <iframe id="materials-viewer" class="materials-viewer" title="资料阅读区"></iframe>
+        </section>
       </section>
     </main>
   </div>

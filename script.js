@@ -22,22 +22,80 @@ async function loadSharedNav() {
     }
 
     mount.innerHTML = await response.text();
+    applyWordmarkThreshold();
   } catch (error) {
     mount.innerHTML = `
       <header class="site-header">
-        <a class="brand" href="index.html" aria-label="返回主页">
-          <div class="brand-icon-wrap"><div class="brand-icon-fallback">W</div></div>
-          <div class="brand-wordmark-wrap"><div class="brand-wordmark-fallback">Wolfox</div></div>
+        <a class="site-logo-link" href="index.html" aria-label="返回主页">
+          <div class="site-logo-panel"><div class="site-logo-fallback">W</div></div>
         </a>
-        <nav class="site-nav" aria-label="主导航">
-          <a href="index.html" data-nav="home">主页面</a>
-          <a href="projects.html" data-nav="projects">章节</a>
-          <a href="resources.html" data-nav="resources">资料</a>
-        </nav>
+        <div class="nav-center">
+          <a class="nav-wordmark-wrap" href="index.html" aria-label="返回主页">
+            <div class="brand-wordmark-fallback">Wolfox</div>
+          </a>
+          <nav class="site-nav" aria-label="主导航">
+            <a href="index.html" data-nav="home">主页面</a>
+            <a href="projects.html" data-nav="projects">章节</a>
+            <a href="resources.html" data-nav="resources">资料</a>
+          </nav>
+        </div>
         <div class="site-author">作者：涂Per</div>
       </header>
     `;
     console.error(error);
+  }
+}
+
+function applyWordmarkThreshold() {
+  const image = document.getElementById("nav-wordmark");
+  if (!image) {
+    return;
+  }
+
+  const threshold = Number(image.dataset.threshold || 185);
+
+  const process = () => {
+    const canvas = document.createElement("canvas");
+    const width = image.naturalWidth;
+    const height = image.naturalHeight;
+    if (!width || !height) {
+      return;
+    }
+
+    canvas.width = width;
+    canvas.height = height;
+    const context = canvas.getContext("2d", { willReadFrequently: true });
+    if (!context) {
+      return;
+    }
+
+    context.drawImage(image, 0, 0, width, height);
+    const imageData = context.getImageData(0, 0, width, height);
+    const { data } = imageData;
+
+    for (let index = 0; index < data.length; index += 4) {
+      const red = data[index];
+      const green = data[index + 1];
+      const blue = data[index + 2];
+      const gray = 0.299 * red + 0.587 * green + 0.114 * blue;
+      if (gray >= threshold) {
+        data[index + 3] = 0;
+      } else {
+        data[index] = 34;
+        data[index + 1] = 28;
+        data[index + 2] = 24;
+        data[index + 3] = 255;
+      }
+    }
+
+    context.putImageData(imageData, 0, 0);
+    image.src = canvas.toDataURL("image/png");
+  };
+
+  if (image.complete) {
+    process();
+  } else {
+    image.addEventListener("load", process, { once: true });
   }
 }
 
@@ -157,12 +215,31 @@ function renderExternalProjects(projects) {
   `).join("");
 }
 
+function openMaterialInViewer(node) {
+  const viewer = document.getElementById("materials-viewer");
+  const title = document.getElementById("viewer-title");
+  const status = document.getElementById("viewer-status");
+
+  if (!viewer || !title || !status) {
+    return;
+  }
+
+  title.textContent = node.name;
+  status.textContent = node.path || node.url;
+  viewer.src = node.url;
+}
 
 function renderMaterialsNode(node) {
   if (node.type === "file") {
+    const safeNode = encodeURIComponent(JSON.stringify({
+      name: node.name,
+      path: node.path,
+      url: node.url,
+    }));
+
     return `
       <li class="materials-item file">
-        <a class="materials-link" href="${node.url}" target="_blank" rel="noreferrer">${node.name}</a>
+        <button class="materials-link materials-file-button" type="button" data-material="${safeNode}">${node.name}</button>
       </li>
     `;
   }
@@ -177,6 +254,19 @@ function renderMaterialsNode(node) {
       </details>
     </li>
   `;
+}
+
+function bindMaterialsViewer() {
+  document.querySelectorAll(".materials-file-button").forEach((button) => {
+    button.addEventListener("click", () => {
+      const raw = button.dataset.material;
+      if (!raw) {
+        return;
+      }
+      const node = JSON.parse(decodeURIComponent(raw));
+      openMaterialInViewer(node);
+    });
+  });
 }
 
 async function loadMaterials() {
@@ -194,14 +284,17 @@ async function loadMaterials() {
     }
 
     const tree = await response.json();
+    const nodes = Array.isArray(tree.children) ? tree.children : [];
     status.textContent = "";
-    root.innerHTML = `<ul class="materials-list root">${renderMaterialsNode(tree)}</ul>`;
+    root.innerHTML = `<ul class="materials-list root">${nodes.map(renderMaterialsNode).join("")}</ul>`;
+    bindMaterialsViewer();
   } catch (error) {
     status.textContent = "资料目录读取失败。";
     root.innerHTML = "";
     console.error(error);
   }
 }
+
 async function loadRepos() {
   const grid = document.getElementById("repo-grid");
   const status = document.getElementById("repo-status");
@@ -297,4 +390,3 @@ document.addEventListener("DOMContentLoaded", async () => {
     loadMaterials();
   }
 });
-
