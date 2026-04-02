@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wolfox | README</title>
+  <meta name="description" content="读取 GitHub 仓库 README。">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body data-page="readme" class="readme-page">
+  <div class="site-shell">
+    <div data-include="nav"></div>
+
+    <main>
+      <div class="top-actions">
+        <a class="button secondary" href="projects.html">返回上一页</a>
+      </div>
+
+      <section class="readme-shell">
+        <div class="readme-meta">
+          <p class="eyebrow">README</p>
+          <h1 id="readme-title">正在加载 README...</h1>
+          <p id="readme-subtitle" class="section-copy">请稍候，正在从 GitHub 获取项目说明。</p>
+        </div>
+        <article id="readme-content" class="markdown-body readme-content" aria-live="polite">
+          <p>正在读取 README 内容...</p>
+        </article>
+      </section>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

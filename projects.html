@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wolfox | 章节</title>
+  <meta name="description" content="展示 tuhui2020 的 GitHub 项目章节。">
+  <link rel="preconnect" href="https://api.github.com">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="projects">
+  <div class="site-shell">
+    <div data-include="nav"></div>
+
+    <main>
+      <div class="top-actions">
+        <a class="button secondary" href="index.html">返回上一页</a>
+      </div>
+
+      <section class="page-header">
+        <p class="eyebrow">Chapters</p>
+        <h1>章节与项目</h1>
+        <p class="section-copy">
+          这里会自动读取 GitHub 用户 <strong>tuhui2020</strong> 的公开仓库。每个项目下方都有“读取 README”和“项目地址”两个按钮。
+        </p>
+      </section>
+
+      <section class="repo-panel">
+        <div class="repo-panel-head">
+          <h2>项目列表</h2>
+          <a class="text-link" href="https://github.com/tuhui2020" target="_blank" rel="noreferrer">查看 GitHub 主页</a>
+        </div>
+        <div id="repo-status" class="repo-status" aria-live="polite">正在读取 GitHub 项目...</div>
+        <div id="repo-grid" class="repo-grid" aria-live="polite"></div>
+      </section>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

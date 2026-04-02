@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wolfox | 主页面</title>
+  <meta name="description" content="tuhui2020 的主页，包含章节与资料入口。">
+  <link rel="preconnect" href="https://api.github.com">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="home">
+  <div class="site-shell">
+    <div data-include="nav"></div>
+
+    <main>
+      <section class="hero">
+        <p class="eyebrow">tuhui2020.github.io</p>
+        <h1>欢迎来到 Wolfox 主页面</h1>
+        <p class="hero-copy">
+          首页展示“章节”和“资料”两个入口。进入章节后会自动读取 GitHub 上的全部公开项目，并支持查看每个项目的 README。
+        </p>
+        <div class="hero-actions">
+          <a class="button primary" href="projects.html">进入章节</a>
+          <a class="button secondary" href="resources.html">进入资料</a>
+        </div>
+      </section>
+
+      <section class="feature-grid" aria-label="页面入口">
+        <a class="feature-card" href="projects.html">
+          <span class="feature-index">01</span>
+          <h2>章节</h2>
+          <p>读取 `tuhui2020` 的公开仓库，提供“读取 README”和“项目地址”两个按钮。</p>
+        </a>
+        <a class="feature-card" href="resources.html">
+          <span class="feature-index">02</span>
+          <h2>资料</h2>
+          <p>作为独立资料页，可以继续扩展成说明页、文章页或资源导航页。</p>
+        </a>
+      </section>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
