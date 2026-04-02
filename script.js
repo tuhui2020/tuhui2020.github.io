@@ -1,4 +1,6 @@
-﻿const GITHUB_USER = "tuhui2020";`r`n`r`nasync function loadSharedNav() {
+﻿const GITHUB_USER = "tuhui2020";
+
+async function loadSharedNav() {
   const mount = document.querySelector("[data-include='nav']");
   if (!mount) {
     return;
@@ -318,7 +320,7 @@ async function loadReadmePage() {
 
   if (!repo) {
     title.textContent = "没有指定项目";
-    subtitle.textContent = "请从章节页重新选择项目。";
+    subtitle.textContent = "请从项目页重新选择项目。";
     container.innerHTML = "<p>缺少项目参数，无法读取 README。</p>";
     return;
   }
@@ -348,7 +350,7 @@ async function loadReadmePage() {
     subtitle.textContent = "当前无法读取 README。";
     container.innerHTML = `
       <p>没有成功从 GitHub 获取 README 文件。</p>
-      <p>你可以稍后重试，或者返回章节页后直接打开项目地址。</p>
+      <p>你可以稍后重试，或者返回项目页后直接打开项目地址。</p>
     `;
     console.error(error);
   }
@@ -371,4 +373,3 @@ document.addEventListener("DOMContentLoaded", async () => {
     loadMaterials();
   }
 });
-
