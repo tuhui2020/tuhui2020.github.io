@@ -2,16 +2,11 @@
 
 async function loadSharedNav() {
   const mount = document.querySelector("[data-include='nav']");
-  if (!mount) {
-    return;
-  }
+  if (!mount) return;
 
   try {
     const response = await fetch("nav.html");
-    if (!response.ok) {
-      throw new Error(`导航加载失败: ${response.status}`);
-    }
-
+    if (!response.ok) throw new Error(`导航加载失败: ${response.status}`);
     mount.innerHTML = await response.text();
     applyWordmarkThreshold();
   } catch (error) {
@@ -39,43 +34,33 @@ async function loadSharedNav() {
 
 function applyWordmarkThreshold() {
   const image = document.getElementById("nav-wordmark");
-  if (!image) {
-    return;
-  }
+  if (!image) return;
 
   const threshold = Number(image.dataset.threshold || 185);
-
   const process = () => {
-    const canvas = document.createElement("canvas");
     const width = image.naturalWidth;
     const height = image.naturalHeight;
-    if (!width || !height) {
-      return;
-    }
+    if (!width || !height) return;
 
+    const canvas = document.createElement("canvas");
     canvas.width = width;
     canvas.height = height;
     const context = canvas.getContext("2d", { willReadFrequently: true });
-    if (!context) {
-      return;
-    }
+    if (!context) return;
 
     context.drawImage(image, 0, 0, width, height);
     const imageData = context.getImageData(0, 0, width, height);
     const { data } = imageData;
 
-    for (let index = 0; index < data.length; index += 4) {
-      const red = data[index];
-      const green = data[index + 1];
-      const blue = data[index + 2];
-      const gray = 0.299 * red + 0.587 * green + 0.114 * blue;
+    for (let i = 0; i < data.length; i += 4) {
+      const gray = 0.299 * data[i] + 0.587 * data[i + 1] + 0.114 * data[i + 2];
       if (gray >= threshold) {
-        data[index + 3] = 0;
+        data[i + 3] = 0;
       } else {
-        data[index] = 34;
-        data[index + 1] = 28;
-        data[index + 2] = 24;
-        data[index + 3] = 255;
+        data[i] = 34;
+        data[i + 1] = 28;
+        data[i + 2] = 24;
+        data[i + 3] = 255;
       }
     }
 
@@ -83,19 +68,13 @@ function applyWordmarkThreshold() {
     image.src = canvas.toDataURL("image/png");
   };
 
-  if (image.complete) {
-    process();
-  } else {
-    image.addEventListener("load", process, { once: true });
-  }
+  if (image.complete) process();
+  else image.addEventListener("load", process, { once: true });
 }
 
 function setActiveNav() {
   const currentPage = document.body.dataset.page;
-  if (!currentPage) {
-    return;
-  }
-
+  if (!currentPage) return;
   document.querySelectorAll("[data-nav]").forEach((link) => {
     link.classList.toggle("active", link.dataset.nav === currentPage);
   });
@@ -103,10 +82,7 @@ function setActiveNav() {
 
 function formatDate(dateString) {
   const date = new Date(dateString);
-  if (Number.isNaN(date.getTime())) {
-    return "未知时间";
-  }
-
+  if (Number.isNaN(date.getTime())) return "未知时间";
   return new Intl.DateTimeFormat("zh-CN", {
     year: "numeric",
     month: "long",
@@ -121,19 +97,13 @@ function decodeBase64Utf8(content) {
 }
 
 function escapeHtml(text) {
-  return text
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;");
+  return text.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
 }
 
 function renderRepos(repos) {
   const grid = document.getElementById("repo-grid");
   const status = document.getElementById("repo-status");
-
-  if (!grid || !status) {
-    return;
-  }
+  if (!grid || !status) return;
 
   if (!Array.isArray(repos) || repos.length === 0) {
     status.textContent = "没有读取到公开项目。";
@@ -141,17 +111,15 @@ function renderRepos(repos) {
   }
 
   status.textContent = `已读取到 ${repos.length} 个公开项目。`;
-
   grid.innerHTML = repos.map((repo) => {
     const description = repo.description || "这个项目暂时没有填写说明。";
     const language = repo.language || "未标注语言";
     const readmeUrl = `readme.html?repo=${encodeURIComponent(repo.name)}`;
-
     return `
       <article class="repo-card">
         <div class="repo-card-top">
-          <div>
-            <h3>${repo.name}</h3>
+          <div class="repo-text">
+            <h3 class="repo-name">${repo.name}</h3>
             <p>${description}</p>
           </div>
           <span class="repo-badge">${language}</span>
@@ -170,15 +138,28 @@ function renderRepos(repos) {
   }).join("");
 }
 
+async function loadRepos() {
+  const grid = document.getElementById("repo-grid");
+  const status = document.getElementById("repo-status");
+  if (!grid || !status) return;
+
+  try {
+    const response = await fetch(`https://api.github.com/users/${GITHUB_USER}/repos?per_page=100&sort=updated`);
+    if (!response.ok) throw new Error(`GitHub API 请求失败: ${response.status}`);
+    const repos = await response.json();
+    renderRepos(repos);
+  } catch (error) {
+    status.textContent = "读取 GitHub 项目失败，请稍后重试。";
+    grid.innerHTML = '<article class="repo-card"><h3>加载失败</h3><p>当前无法从 GitHub API 读取项目信息。</p></article>';
+    console.error(error);
+  }
+}
+
 function openMaterialInViewer(node) {
   const viewer = document.getElementById("materials-viewer");
   const title = document.getElementById("viewer-title");
   const status = document.getElementById("viewer-status");
-
-  if (!viewer || !title || !status) {
-    return;
-  }
-
+  if (!viewer || !title || !status) return;
   title.textContent = node.name;
   status.textContent = node.path || node.url;
   viewer.src = node.url;
@@ -187,21 +168,15 @@ function openMaterialInViewer(node) {
 function bindViewerFullscreen() {
   const button = document.getElementById("viewer-fullscreen");
   const viewerPanel = document.getElementById("viewer-panel");
-
-  if (!button || !viewerPanel) {
-    return;
-  }
+  if (!button || !viewerPanel) return;
 
   button.addEventListener("click", async () => {
     try {
       if (document.fullscreenElement === viewerPanel) {
         await document.exitFullscreen();
-        button.textContent = "全屏";
         return;
       }
-
       await viewerPanel.requestFullscreen();
-      button.textContent = "退出全屏";
     } catch (error) {
       console.error(error);
     }
@@ -214,38 +189,20 @@ function bindViewerFullscreen() {
 
 function renderMaterialsNode(node) {
   if (node.type === "file") {
-    const safeNode = encodeURIComponent(JSON.stringify({
-      name: node.name,
-      path: node.path,
-      url: node.url,
-    }));
-
-    return `
-      <li class="materials-item file">
-        <button class="materials-link materials-file-button" type="button" data-material="${safeNode}">${node.name}</button>
-      </li>
-    `;
+    const safeNode = encodeURIComponent(JSON.stringify({ name: node.name, path: node.path, url: node.url }));
+    return `<li class="materials-item file"><button class="materials-link materials-file-button" type="button" data-material="${safeNode}">${node.name}</button></li>`;
   }
 
   const children = Array.isArray(node.children) ? node.children : [];
   const childMarkup = children.map(renderMaterialsNode).join("");
-  return `
-    <li class="materials-item folder">
-      <details open>
-        <summary>${node.name}</summary>
-        ${childMarkup ? `<ul class="materials-list">${childMarkup}</ul>` : ""}
-      </details>
-    </li>
-  `;
+  return `<li class="materials-item folder"><details open><summary>${node.name}</summary>${childMarkup ? `<ul class="materials-list">${childMarkup}</ul>` : ""}</details></li>`;
 }
 
 function bindMaterialsViewer() {
   document.querySelectorAll(".materials-file-button").forEach((button) => {
     button.addEventListener("click", () => {
       const raw = button.dataset.material;
-      if (!raw) {
-        return;
-      }
+      if (!raw) return;
       const node = JSON.parse(decodeURIComponent(raw));
       openMaterialInViewer(node);
     });
@@ -255,17 +212,11 @@ function bindMaterialsViewer() {
 async function loadMaterials() {
   const status = document.getElementById("materials-status");
   const root = document.getElementById("materials-root");
-
-  if (!status || !root) {
-    return;
-  }
+  if (!status || !root) return;
 
   try {
     const response = await fetch("materials-manifest.json");
-    if (!response.ok) {
-      throw new Error(`资料目录请求失败: ${response.status}`);
-    }
-
+    if (!response.ok) throw new Error(`资料目录请求失败: ${response.status}`);
     const tree = await response.json();
     const nodes = Array.isArray(tree.children) ? tree.children : [];
     status.textContent = "";
@@ -278,42 +229,11 @@ async function loadMaterials() {
   }
 }
 
-async function loadRepos() {
-  const grid = document.getElementById("repo-grid");
-  const status = document.getElementById("repo-status");
-
-  if (!grid || !status) {
-    return;
-  }
-
-  try {
-    const response = await fetch(`https://api.github.com/users/${GITHUB_USER}/repos?per_page=100&sort=updated`);
-    if (!response.ok) {
-      throw new Error(`GitHub API 请求失败: ${response.status}`);
-    }
-
-    const repos = await response.json();
-    renderRepos(repos);
-  } catch (error) {
-    status.textContent = "读取 GitHub 项目失败，请稍后重试。";
-    grid.innerHTML = `
-      <article class="repo-card">
-        <h3>加载失败</h3>
-        <p>当前无法从 GitHub API 读取项目信息。部署到 GitHub Pages 后，请确认网络可以访问 GitHub API。</p>
-      </article>
-    `;
-    console.error(error);
-  }
-}
-
 async function loadReadmePage() {
   const title = document.getElementById("readme-title");
   const subtitle = document.getElementById("readme-subtitle");
   const container = document.getElementById("readme-content");
-
-  if (!title || !subtitle || !container) {
-    return;
-  }
+  if (!title || !subtitle || !container) return;
 
   const params = new URLSearchParams(window.location.search);
   const repo = params.get("repo");
@@ -330,28 +250,14 @@ async function loadReadmePage() {
 
   try {
     const response = await fetch(`https://api.github.com/repos/${GITHUB_USER}/${encodeURIComponent(repo)}/readme`);
-    if (!response.ok) {
-      throw new Error(`README 请求失败: ${response.status}`);
-    }
-
+    if (!response.ok) throw new Error(`README 请求失败: ${response.status}`);
     const readme = await response.json();
     const markdown = decodeBase64Utf8(readme.content || "");
     subtitle.textContent = `README 来源：${GITHUB_USER}/${repo}`;
-
-    if (window.marked) {
-      container.innerHTML = window.marked.parse(markdown, {
-        mangle: false,
-        headerIds: false,
-      });
-    } else {
-      container.innerHTML = `<pre>${escapeHtml(markdown)}</pre>`;
-    }
+    container.innerHTML = window.marked ? window.marked.parse(markdown, { mangle: false, headerIds: false }) : `<pre>${escapeHtml(markdown)}</pre>`;
   } catch (error) {
     subtitle.textContent = "当前无法读取 README。";
-    container.innerHTML = `
-      <p>没有成功从 GitHub 获取 README 文件。</p>
-      <p>你可以稍后重试，或者返回项目页后直接打开项目地址。</p>
-    `;
+    container.innerHTML = "<p>没有成功从 GitHub 获取 README 文件。</p><p>你可以稍后重试，或者返回项目页后直接打开项目地址。</p>";
     console.error(error);
   }
 }
@@ -360,14 +266,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   await loadSharedNav();
   setActiveNav();
 
-  if (document.body.dataset.page === "projects") {
-    loadRepos();
-  }
-
-  if (document.body.dataset.page === "readme") {
-    loadReadmePage();
-  }
-
+  if (document.body.dataset.page === "projects") loadRepos();
+  if (document.body.dataset.page === "readme") loadReadmePage();
   if (document.body.dataset.page === "resources") {
     bindViewerFullscreen();
     loadMaterials();
