@@ -1,5 +1,7 @@
 ﻿const GITHUB_USER = "tuhui2020";
 
+const ASSET_VERSION = "20260729-2";
+
 function isEnglishPage() {
   return document.documentElement.lang.toLowerCase().startsWith("en");
 }
@@ -9,7 +11,7 @@ async function loadSharedNav() {
   if (!mount) return;
 
   try {
-    const response = await fetch("nav.html");
+    const response = await fetch(`nav.html?v=${ASSET_VERSION}`);
     if (!response.ok) throw new Error(`导航加载失败: ${response.status}`);
     mount.innerHTML = await response.text();
     applyWordmarkThreshold();
