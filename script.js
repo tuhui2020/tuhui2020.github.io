@@ -40,6 +40,7 @@ async function loadSharedNav() {
 
 function configureSharedNav() {
   const english = isEnglishPage();
+  const currentPage = document.body.dataset.page;
   const identity = document.querySelector(".site-identity");
   const nav = document.querySelector(".site-nav");
   const github = document.querySelector(".header-github");
@@ -57,7 +58,7 @@ function configureSharedNav() {
 
   if (english && navLinks.length >= 3) {
     const labels = ["Home", "Research", "Projects"];
-    const hrefs = ["index-en.html", "index-en.html#research", "projects.html"];
+    const hrefs = ["index-en.html", "index-en.html#research", "projects-en.html"];
     navLinks.forEach((link, index) => {
       link.textContent = labels[index];
       link.href = hrefs[index];
@@ -65,6 +66,15 @@ function configureSharedNav() {
   }
 
   document.querySelectorAll("[data-lang-link]").forEach((link) => {
+    const targetLanguage = link.dataset.langLink;
+    const homeTarget = targetLanguage === "en" ? "index-en.html" : "index.html";
+    const projectTarget = targetLanguage === "en" ? "projects-en.html" : "projects.html";
+    const readmeTarget = targetLanguage === "en" ? "readme-en.html" : "readme.html";
+
+    if (currentPage === "projects") link.href = `${projectTarget}${window.location.hash}`;
+    else if (currentPage === "readme") link.href = `${readmeTarget}${window.location.search}${window.location.hash}`;
+    else link.href = `${homeTarget}${window.location.hash}`;
+
     const active = link.dataset.langLink === (english ? "en" : "zh");
     link.classList.toggle("active", active);
     if (active) link.setAttribute("aria-current", "page");
@@ -146,15 +156,19 @@ function renderRepos(repos) {
   if (!grid || !status) return;
 
   if (!Array.isArray(repos) || repos.length === 0) {
-    status.textContent = "没有读取到公开项目。";
+    status.textContent = isEnglishPage() ? "No public repositories were found." : "没有读取到公开项目。";
     return;
   }
 
-  status.textContent = `已读取到 ${repos.length} 个公开项目。`;
+  const english = isEnglishPage();
+  status.textContent = english
+    ? `${repos.length} public repositories loaded.`
+    : `已读取到 ${repos.length} 个公开项目。`;
   grid.innerHTML = repos.map((repo) => {
-    const description = repo.description || "这个项目暂时没有填写说明。";
-    const language = repo.language || "未标注语言";
-    const readmeUrl = `readme.html?repo=${encodeURIComponent(repo.name)}`;
+    const description = repo.description || (english ? "No description has been provided for this repository." : "这个项目暂时没有填写说明。");
+    const language = repo.language || (english ? "Not specified" : "未标注语言");
+    const readmePage = english ? "readme-en.html" : "readme.html";
+    const readmeUrl = `${readmePage}?repo=${encodeURIComponent(repo.name)}`;
     return `
       <article class="repo-card">
         <div class="repo-card-top">
@@ -167,11 +181,11 @@ function renderRepos(repos) {
         <div class="repo-meta">
           <span>Stars ${repo.stargazers_count}</span>
           <span>Forks ${repo.forks_count}</span>
-          <span>更新于 ${formatDate(repo.updated_at)}</span>
+          <span>${english ? "Updated" : "更新于"} ${formatDate(repo.updated_at)}</span>
         </div>
         <div class="repo-links">
-          <a class="button secondary small" href="${readmeUrl}">读取 README</a>
-          <a class="button primary small" href="${repo.html_url}" target="_blank" rel="noreferrer">项目地址</a>
+          <a class="button secondary small" href="${readmeUrl}">${english ? "Read README" : "读取 README"}</a>
+          <a class="button primary small" href="${repo.html_url}" target="_blank" rel="noreferrer">${english ? "Repository" : "项目地址"}</a>
         </div>
       </article>
     `;
@@ -189,8 +203,13 @@ async function loadRepos() {
     const repos = await response.json();
     renderRepos(repos);
   } catch (error) {
-    status.textContent = "读取 GitHub 项目失败，请稍后重试。";
-    grid.innerHTML = '<article class="repo-card"><h3>加载失败</h3><p>当前无法从 GitHub API 读取项目信息。</p></article>';
+    if (isEnglishPage()) {
+      status.textContent = "Unable to load GitHub repositories. Please try again later.";
+      grid.innerHTML = '<article class="repo-card"><h3>Unable to load</h3><p>Repository data is currently unavailable from the GitHub API.</p></article>';
+    } else {
+      status.textContent = "读取 GitHub 项目失败，请稍后重试。";
+      grid.innerHTML = '<article class="repo-card"><h3>加载失败</h3><p>当前无法从 GitHub API 读取项目信息。</p></article>';
+    }
     console.error(error);
   }
 }
@@ -203,27 +222,30 @@ async function loadReadmePage() {
 
   const params = new URLSearchParams(window.location.search);
   const repo = params.get("repo");
+  const english = isEnglishPage();
 
   if (!repo) {
-    title.textContent = "没有指定项目";
-    subtitle.textContent = "请从项目页重新选择项目。";
-    container.innerHTML = "<p>缺少项目参数，无法读取 README。</p>";
+    title.textContent = english ? "No repository selected" : "没有指定项目";
+    subtitle.textContent = english ? "Please select a repository from the projects page." : "请从项目页重新选择项目。";
+    container.innerHTML = english ? "<p>The repository parameter is missing, so the README cannot be loaded.</p>" : "<p>缺少项目参数，无法读取 README。</p>";
     return;
   }
 
   title.textContent = repo;
-  subtitle.textContent = `正在读取 ${repo} 的 README 文件...`;
+  subtitle.textContent = english ? `Loading the README for ${repo}...` : `正在读取 ${repo} 的 README 文件...`;
 
   try {
     const response = await fetch(`https://api.github.com/repos/${GITHUB_USER}/${encodeURIComponent(repo)}/readme`);
     if (!response.ok) throw new Error(`README 请求失败: ${response.status}`);
     const readme = await response.json();
     const markdown = decodeBase64Utf8(readme.content || "");
-    subtitle.textContent = `README 来源：${GITHUB_USER}/${repo}`;
+    subtitle.textContent = english ? `README source: ${GITHUB_USER}/${repo}` : `README 来源：${GITHUB_USER}/${repo}`;
     container.innerHTML = window.marked ? window.marked.parse(markdown, { mangle: false, headerIds: false }) : `<pre>${escapeHtml(markdown)}</pre>`;
   } catch (error) {
-    subtitle.textContent = "当前无法读取 README。";
-    container.innerHTML = "<p>没有成功从 GitHub 获取 README 文件。</p><p>你可以稍后重试，或者返回项目页后直接打开项目地址。</p>";
+    subtitle.textContent = english ? "The README is currently unavailable." : "当前无法读取 README。";
+    container.innerHTML = english
+      ? "<p>The README could not be retrieved from GitHub.</p><p>Please try again later, or return to the projects page and open the repository directly.</p>"
+      : "<p>没有成功从 GitHub 获取 README 文件。</p><p>你可以稍后重试，或者返回项目页后直接打开项目地址。</p>";
     console.error(error);
   }
 }
