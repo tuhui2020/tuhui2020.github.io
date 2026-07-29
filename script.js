@@ -1,5 +1,9 @@
 ﻿const GITHUB_USER = "tuhui2020";
 
+function isEnglishPage() {
+  return document.documentElement.lang.toLowerCase().startsWith("en");
+}
+
 async function loadSharedNav() {
   const mount = document.querySelector("[data-include='nav']");
   if (!mount) return;
@@ -20,13 +24,52 @@ async function loadSharedNav() {
           <a href="index.html" data-nav="home">首页</a>
           <a href="index.html#research">研究</a>
           <a href="projects.html" data-nav="projects">项目</a>
-          <a href="resources.html" data-nav="resources">资料</a>
         </nav>
-        <a class="header-github" href="https://github.com/tuhui2020" target="_blank" rel="noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+        <div class="header-actions">
+          <div class="language-switch" aria-label="语言切换">
+            <a href="index.html" data-lang-link="zh">中文</a>
+            <a href="index-en.html" data-lang-link="en">EN</a>
+          </div>
+          <a class="header-github" href="https://github.com/tuhui2020" target="_blank" rel="noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+        </div>
       </header>
     `;
     console.error(error);
   }
+}
+
+function configureSharedNav() {
+  const english = isEnglishPage();
+  const identity = document.querySelector(".site-identity");
+  const nav = document.querySelector(".site-nav");
+  const github = document.querySelector(".header-github");
+  const navLinks = document.querySelectorAll(".site-nav a");
+  const languageSwitch = document.querySelector(".language-switch");
+
+  if (identity) {
+    identity.href = english ? "index-en.html" : "index.html";
+    identity.setAttribute("aria-label", english ? "Return to TU Hui's homepage" : "返回涂汇的个人主页");
+  }
+
+  if (nav) nav.setAttribute("aria-label", english ? "Main navigation" : "主导航");
+  if (github) github.setAttribute("aria-label", english ? "Open GitHub profile" : "打开 GitHub 主页");
+  if (languageSwitch) languageSwitch.setAttribute("aria-label", english ? "Language" : "语言切换");
+
+  if (english && navLinks.length >= 3) {
+    const labels = ["Home", "Research", "Projects"];
+    const hrefs = ["index-en.html", "index-en.html#research", "projects.html"];
+    navLinks.forEach((link, index) => {
+      link.textContent = labels[index];
+      link.href = hrefs[index];
+    });
+  }
+
+  document.querySelectorAll("[data-lang-link]").forEach((link) => {
+    const active = link.dataset.langLink === (english ? "en" : "zh");
+    link.classList.toggle("active", active);
+    if (active) link.setAttribute("aria-current", "page");
+    else link.removeAttribute("aria-current");
+  });
 }
 
 function applyWordmarkThreshold() {
@@ -79,8 +122,8 @@ function setActiveNav() {
 
 function formatDate(dateString) {
   const date = new Date(dateString);
-  if (Number.isNaN(date.getTime())) return "未知时间";
-  return new Intl.DateTimeFormat("zh-CN", {
+  if (Number.isNaN(date.getTime())) return isEnglishPage() ? "Unknown date" : "未知时间";
+  return new Intl.DateTimeFormat(isEnglishPage() ? "en-US" : "zh-CN", {
     year: "numeric",
     month: "long",
     day: "numeric",
@@ -159,7 +202,7 @@ function renderHomeRepos(repos) {
 
   const recent = Array.isArray(repos) ? repos.slice(0, 3) : [];
   if (recent.length === 0) {
-    status.textContent = "暂时没有读取到公开项目。";
+    status.textContent = isEnglishPage() ? "No public projects were found." : "暂时没有读取到公开项目。";
     return;
   }
 
@@ -176,20 +219,20 @@ function renderHomeRepos(repos) {
     const title = document.createElement("h3");
     title.textContent = repo.name;
     const description = document.createElement("p");
-    description.textContent = repo.description || "这个项目暂时没有填写说明。";
+    description.textContent = repo.description || (isEnglishPage() ? "No description is available for this project." : "这个项目暂时没有填写说明。");
     copy.append(title, description);
 
     const meta = document.createElement("div");
     meta.className = "home-repo-meta";
     const language = document.createElement("span");
-    language.textContent = repo.language || "未标注语言";
+    language.textContent = repo.language || (isEnglishPage() ? "Language not specified" : "未标注语言");
     const updated = document.createElement("span");
     updated.textContent = formatDate(repo.updated_at);
     const link = document.createElement("a");
     link.href = repo.html_url;
     link.target = "_blank";
     link.rel = "noreferrer";
-    link.textContent = "查看 ↗";
+    link.textContent = isEnglishPage() ? "View ↗" : "查看 ↗";
     meta.append(language, updated, link);
 
     article.append(number, copy, meta);
@@ -207,81 +250,7 @@ async function loadHomeRepos() {
     if (!response.ok) throw new Error(`GitHub API 请求失败: ${response.status}`);
     renderHomeRepos(await response.json());
   } catch (error) {
-    status.textContent = "项目暂时无法读取，可前往 GitHub 查看。";
-    console.error(error);
-  }
-}
-
-function openMaterialInViewer(node) {
-  const viewer = document.getElementById("materials-viewer");
-  const title = document.getElementById("viewer-title");
-  const status = document.getElementById("viewer-status");
-  if (!viewer || !title || !status) return;
-  title.textContent = node.name;
-  status.textContent = node.path || node.url;
-  viewer.src = node.url;
-}
-
-function bindViewerFullscreen() {
-  const button = document.getElementById("viewer-fullscreen");
-  const viewerPanel = document.getElementById("viewer-panel");
-  if (!button || !viewerPanel) return;
-
-  button.addEventListener("click", async () => {
-    try {
-      if (document.fullscreenElement === viewerPanel) {
-        await document.exitFullscreen();
-        return;
-      }
-      await viewerPanel.requestFullscreen();
-    } catch (error) {
-      console.error(error);
-    }
-  });
-
-  document.addEventListener("fullscreenchange", () => {
-    button.textContent = document.fullscreenElement === viewerPanel ? "退出全屏" : "全屏";
-  });
-}
-
-function renderMaterialsNode(node) {
-  if (node.type === "file") {
-    const safeNode = encodeURIComponent(JSON.stringify({ name: node.name, path: node.path, url: node.url }));
-    return `<li class="materials-item file"><button class="materials-link materials-file-button" type="button" data-material="${safeNode}">${node.name}</button></li>`;
-  }
-
-  const children = Array.isArray(node.children) ? node.children : [];
-  const childMarkup = children.map(renderMaterialsNode).join("");
-  return `<li class="materials-item folder"><details open><summary>${node.name}</summary>${childMarkup ? `<ul class="materials-list">${childMarkup}</ul>` : ""}</details></li>`;
-}
-
-function bindMaterialsViewer() {
-  document.querySelectorAll(".materials-file-button").forEach((button) => {
-    button.addEventListener("click", () => {
-      const raw = button.dataset.material;
-      if (!raw) return;
-      const node = JSON.parse(decodeURIComponent(raw));
-      openMaterialInViewer(node);
-    });
-  });
-}
-
-async function loadMaterials() {
-  const status = document.getElementById("materials-status");
-  const root = document.getElementById("materials-root");
-  if (!status || !root) return;
-
-  try {
-    const response = await fetch("materials-manifest.json");
-    if (!response.ok) throw new Error(`资料目录请求失败: ${response.status}`);
-    const tree = await response.json();
-    const nodes = Array.isArray(tree.children) ? tree.children : [];
-    status.textContent = "";
-    root.innerHTML = `<ul class="materials-list root">${nodes.map(renderMaterialsNode).join("")}</ul>`;
-    bindMaterialsViewer();
-  } catch (error) {
-    status.textContent = "资料目录读取失败。";
-    root.innerHTML = "";
+    status.textContent = isEnglishPage() ? "Projects are temporarily unavailable. Please view them on GitHub." : "项目暂时无法读取，可前往 GitHub 查看。";
     console.error(error);
   }
 }
@@ -321,13 +290,10 @@ async function loadReadmePage() {
 
 document.addEventListener("DOMContentLoaded", async () => {
   await loadSharedNav();
+  configureSharedNav();
   setActiveNav();
 
   if (document.body.dataset.page === "home") loadHomeRepos();
   if (document.body.dataset.page === "projects") loadRepos();
   if (document.body.dataset.page === "readme") loadReadmePage();
-  if (document.body.dataset.page === "resources") {
-    bindViewerFullscreen();
-    loadMaterials();
-  }
 });
