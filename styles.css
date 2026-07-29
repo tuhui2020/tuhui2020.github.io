@@ -220,7 +220,11 @@ main { min-width: 0; }
   .research-entry-head { align-items: flex-start; flex-direction: column; gap: 4px; }
   .education-list article, .timeline-item { grid-template-columns: 1fr; gap: 8px; padding: 26px 0; }
   .timeline-heading { flex-direction: column; gap: 0; }
-  .honors-columns { grid-template-columns: 1fr; gap: 42px; }
+  .honors-columns { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+  .honors-columns .subsection-title { min-height: 34px; margin-bottom: 10px; font-size: 0.68rem; line-height: 1.45; }
+  .honor-list article { min-height: 0; padding: 16px 0; }
+  .honor-list h4 { font-size: 0.9rem; line-height: 1.45; overflow-wrap: anywhere; }
+  .honor-list p { font-size: 0.74rem; }
   .home-repo-item { grid-template-columns: 34px minmax(0, 1fr); gap: 12px; }
   .home-repo-meta { grid-template-columns: 1fr; gap: 5px; }
   .site-footer { flex-direction: column; }
