@@ -1,10 +1,11 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Wolfox | 主页面</title>
-  <meta name="description" content="Wolfox 主页。">
+  <title>涂汇 TU Hui | 个人学术主页</title>
+  <meta name="description" content="涂汇的个人学术主页。上海理工大学机器人工程本科生，研究方向为七自由度机械臂、可操作度优化与运动规划。">
+  <link rel="preconnect" href="https://api.github.com">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body data-page="home">
@@ -12,20 +13,150 @@
     <div data-include="nav"></div>
 
     <main>
-      <section class="hero">
-        <p class="eyebrow">tuhui2020.github.io</p>
-        <h1>欢迎来到这里</h1>
-        <div class="hero-actions">
-          <a class="button primary" href="projects.html">项目</a>
-          <a class="button secondary" href="resources.html">资料</a>
+      <section class="profile-hero" aria-labelledby="profile-name">
+        <div class="profile-copy">
+          <p class="eyebrow">Robotics Engineering / 机器人工程</p>
+          <h1 id="profile-name">涂汇 <span>TU Hui</span></h1>
+          <p class="profile-role">上海理工大学 · 机器人工程本科生</p>
+          <p class="profile-intro">
+            我的研究兴趣集中在机器人运动学、七自由度机械臂冗余解析、可操作度优化与运动规划，并持续参与机器人控制和嵌入式系统实践。
+          </p>
+          <div class="profile-links" aria-label="个人链接">
+            <a class="button primary" href="mailto:tuhui2020@gmail.com">联系我</a>
+            <a class="button secondary" href="projects.html">项目与代码</a>
+            <a class="text-arrow-link" href="https://github.com/tuhui2020" target="_blank" rel="noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+
+        <aside class="profile-card" aria-label="个人信息">
+          <img class="profile-photo" src="images/profile.jpg" alt="涂汇的个人照片">
+          <dl class="profile-facts">
+            <div><dt>专业</dt><dd>机器人工程</dd></div>
+            <div><dt>学校</dt><dd>上海理工大学</dd></div>
+            <div><dt>地址</dt><dd>上海理工大学，中国上海</dd></div>
+            <div><dt>邮箱</dt><dd><a href="mailto:tuhui2020@gmail.com">tuhui2020@gmail.com</a></dd></div>
+            <div><dt>代码</dt><dd><a href="https://github.com/tuhui2020" target="_blank" rel="noreferrer">@tuhui2020</a></dd></div>
+          </dl>
+        </aside>
+      </section>
+
+      <section id="about" class="content-section" aria-labelledby="about-title">
+        <div class="section-label">01 / About</div>
+        <div class="section-body">
+          <h2 id="about-title">个人简介</h2>
+          <div class="about-grid">
+            <div class="prose-large">
+              <p>
+                我目前就读于上海理工大学机器人工程专业，本科阶段系统学习了机器人学、机器人机构学、机器人动力学与控制、计算机视觉、人工智能和嵌入式系统等课程。
+              </p>
+              <p>
+                我希望把严谨的运动学分析与可验证的工程实现结合起来，研究机器人在复杂约束下如何保持灵活性、稳定性和规划效率。
+              </p>
+            </div>
+            <dl class="academic-summary">
+              <div><dt>2023 - 至今</dt><dd>机器人工程学士<br><span>上海理工大学</span></dd></div>
+              <div><dt>语言</dt><dd>中文 · English</dd></div>
+            </dl>
+          </div>
         </div>
       </section>
 
-      <section class="entry-grid" aria-label="页面入口">
-        <a class="entry-card" href="projects.html">项目</a>
-        <a class="entry-card" href="resources.html">资料</a>
+      <section id="research" class="content-section" aria-labelledby="research-title">
+        <div class="section-label">02 / Research</div>
+        <div class="section-body">
+          <div class="section-heading-row">
+            <div>
+              <h2 id="research-title">研究经历</h2>
+              <p class="section-note">2025.06 - 至今</p>
+            </div>
+            <a class="text-arrow-link" href="resources.html">相关文献 <span aria-hidden="true">→</span></a>
+          </div>
+          <article class="featured-research">
+            <div class="feature-kicker">7-DOF Robotic Manipulators</div>
+            <h3>七自由度机械臂冗余解析与可操作度优化</h3>
+            <p>针对冗余机械臂在末端位姿约束下的构型选择与灵活性保持问题，开展运动学建模、奇异性分析和优化方法研究。</p>
+            <ul class="detail-list">
+              <li>建立基于 DH 参数的七自由度机械臂运动学模型，并推导雅可比矩阵。</li>
+              <li>通过矩阵秩与行列式分析奇异构型，研究构型与 Yoshikawa 可操作度指标的关系。</li>
+              <li>研究零空间投影冗余解析方法，探索沿运动轨迹保持高灵活性的可操作度优化策略。</li>
+            </ul>
+          </article>
+          <div class="research-tags" aria-label="研究关键词">
+            <span>Robot Kinematics</span><span>Redundancy Resolution</span><span>Manipulability</span><span>Motion Planning</span>
+          </div>
+        </div>
+      </section>
+
+      <section id="experience" class="content-section" aria-labelledby="experience-title">
+        <div class="section-label">03 / Experience</div>
+        <div class="section-body">
+          <h2 id="experience-title">项目与实践</h2>
+          <div class="timeline">
+            <article class="timeline-item">
+              <div class="timeline-date">2025.08 - 2025.10</div>
+              <div>
+                <p class="item-award">全国一等奖</p>
+                <h3>RoboCup 人形机器人短跑赛</h3>
+                <p>基于运动学建模与嵌入式控制平台设计并优化运动控制算法；通过步态参数调节、传感反馈分析和迭代调试提升行走速度与稳定性。</p>
+              </div>
+            </article>
+            <article class="timeline-item">
+              <div class="timeline-date">2025.04 - 2025.08</div>
+              <div>
+                <p class="item-award">全国三等奖</p>
+                <h3>睿抗智能物流车竞赛</h3>
+                <p>完成四轮麦克纳姆轮移动机器人的机械结构与传感器选型，推导全向运动学，并开发基于 STM32 的电机控制、传感采集和任务协同程序。</p>
+              </div>
+            </article>
+            <article class="timeline-item">
+              <div class="timeline-date">2025.02 - 2025.06</div>
+              <div>
+                <p class="item-award">工程实践</p>
+                <h3>上海理工大学制造实习</h3>
+                <p>完成车、铣、钻与金属成形等加工训练，掌握常见制造设备的操作规范，并建立机械制造和公差控制的基础认识。</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="honors" class="content-section" aria-labelledby="honors-title">
+        <div class="section-label">04 / Honors</div>
+        <div class="section-body">
+          <h2 id="honors-title">荣誉与奖项</h2>
+          <div class="honors-grid">
+            <article><span>2024, 2025</span><h3>国家励志奖学金</h3></article>
+            <article><span>2025</span><h3>机械工程学院励志之星</h3></article>
+            <article><span>2024</span><h3>蓝桥杯上海赛区一等奖</h3><p>全国总决赛三等奖</p></article>
+            <article><span>2024, 2025</span><h3>CCPC 上海市赛三等奖</h3></article>
+            <article><span>2025</span><h3>GPLT 全国总决赛个人三等奖</h3><p>上海高校组一等奖</p></article>
+            <article><span>2023 - 2025</span><h3>校级学业奖学金</h3><p>二等 / 三等</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section id="work" class="content-section" aria-labelledby="work-title">
+        <div class="section-label">05 / Code</div>
+        <div class="section-body">
+          <div class="section-heading-row">
+            <div><h2 id="work-title">近期代码</h2><p class="section-note">按 GitHub 最近更新时间排序</p></div>
+            <a class="text-arrow-link" href="projects.html">全部项目 <span aria-hidden="true">→</span></a>
+          </div>
+          <div id="home-repo-status" class="inline-status" aria-live="polite">正在读取项目...</div>
+          <div id="home-repo-list" class="home-repo-list" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <section class="library-strip" aria-labelledby="library-title">
+        <div><p class="eyebrow">Open Library</p><h2 id="library-title">研究资料库</h2><p>29 篇机器人运动规划相关论文，支持站内分类浏览与在线阅读。</p></div>
+        <a class="button light" href="resources.html">进入资料库 <span aria-hidden="true">→</span></a>
       </section>
     </main>
+
+    <footer class="site-footer">
+      <span>© 2026 涂汇 TU Hui</span>
+      <a href="mailto:tuhui2020@gmail.com">tuhui2020@gmail.com</a>
+    </footer>
   </div>
 
   <script src="script.js"></script>

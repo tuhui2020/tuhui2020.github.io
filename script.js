@@ -12,20 +12,17 @@ async function loadSharedNav() {
   } catch (error) {
     mount.innerHTML = `
       <header class="site-header">
-        <a class="site-logo-link" href="index.html" aria-label="返回主页">
-          <div class="site-logo-panel"><div class="site-logo-fallback">W</div></div>
+        <a class="site-identity" href="index.html" aria-label="返回涂汇的个人主页">
+          <img class="site-logo-image" src="images/wolf_logo.jpg" alt="">
+          <span class="site-name">TU HUI</span>
         </a>
-        <div class="nav-center">
-          <a class="nav-wordmark-wrap" href="index.html" aria-label="返回主页">
-            <div class="brand-wordmark-fallback">Wolfox</div>
-          </a>
-          <nav class="site-nav" aria-label="主导航">
-            <a href="index.html" data-nav="home">主页面</a>
-            <a href="projects.html" data-nav="projects">项目</a>
-            <a href="resources.html" data-nav="resources">资料</a>
-          </nav>
-        </div>
-        <div class="site-author">作者：涂Per</div>
+        <nav class="site-nav" aria-label="主导航">
+          <a href="index.html" data-nav="home">首页</a>
+          <a href="index.html#research">研究</a>
+          <a href="projects.html" data-nav="projects">项目</a>
+          <a href="resources.html" data-nav="resources">资料</a>
+        </nav>
+        <a class="header-github" href="https://github.com/tuhui2020" target="_blank" rel="noreferrer">GitHub <span aria-hidden="true">↗</span></a>
       </header>
     `;
     console.error(error);
@@ -155,6 +152,66 @@ async function loadRepos() {
   }
 }
 
+function renderHomeRepos(repos) {
+  const list = document.getElementById("home-repo-list");
+  const status = document.getElementById("home-repo-status");
+  if (!list || !status) return;
+
+  const recent = Array.isArray(repos) ? repos.slice(0, 3) : [];
+  if (recent.length === 0) {
+    status.textContent = "暂时没有读取到公开项目。";
+    return;
+  }
+
+  status.textContent = "";
+  recent.forEach((repo, index) => {
+    const article = document.createElement("article");
+    article.className = "home-repo-item";
+
+    const number = document.createElement("span");
+    number.className = "home-repo-number";
+    number.textContent = String(index + 1).padStart(2, "0");
+
+    const copy = document.createElement("div");
+    const title = document.createElement("h3");
+    title.textContent = repo.name;
+    const description = document.createElement("p");
+    description.textContent = repo.description || "这个项目暂时没有填写说明。";
+    copy.append(title, description);
+
+    const meta = document.createElement("div");
+    meta.className = "home-repo-meta";
+    const language = document.createElement("span");
+    language.textContent = repo.language || "未标注语言";
+    const updated = document.createElement("span");
+    updated.textContent = formatDate(repo.updated_at);
+    const link = document.createElement("a");
+    link.href = repo.html_url;
+    link.target = "_blank";
+    link.rel = "noreferrer";
+    link.textContent = "查看 ↗";
+    meta.append(language, updated, link);
+
+    article.append(number, copy, meta);
+    list.append(article);
+  });
+}
+
+async function loadHomeRepos() {
+  const list = document.getElementById("home-repo-list");
+  const status = document.getElementById("home-repo-status");
+  if (!list || !status) return;
+
+  try {
+    const response = await fetch(`https://api.github.com/users/${GITHUB_USER}/repos?per_page=3&sort=updated`);
+    if (!response.ok) throw new Error(`GitHub API 请求失败: ${response.status}`);
+    renderHomeRepos(await response.json());
+  } catch (error) {
+    status.textContent = "项目暂时无法读取，可前往 GitHub 查看。";
+    console.error(error);
+  }
+}
+
 function openMaterialInViewer(node) {
   const viewer = document.getElementById("materials-viewer");
   const title = document.getElementById("viewer-title");
@@ -266,6 +323,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   await loadSharedNav();
   setActiveNav();
 
+  if (document.body.dataset.page === "home") loadHomeRepos();
   if (document.body.dataset.page === "projects") loadRepos();
   if (document.body.dataset.page === "readme") loadReadmePage();
   if (document.body.dataset.page === "resources") {
