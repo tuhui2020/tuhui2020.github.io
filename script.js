@@ -195,66 +195,6 @@ async function loadRepos() {
   }
 }
 
-function renderHomeRepos(repos) {
-  const list = document.getElementById("home-repo-list");
-  const status = document.getElementById("home-repo-status");
-  if (!list || !status) return;
-
-  const recent = Array.isArray(repos) ? repos.slice(0, 3) : [];
-  if (recent.length === 0) {
-    status.textContent = isEnglishPage() ? "No public projects were found." : "暂时没有读取到公开项目。";
-    return;
-  }
-
-  status.textContent = "";
-  recent.forEach((repo, index) => {
-    const article = document.createElement("article");
-    article.className = "home-repo-item";
-
-    const number = document.createElement("span");
-    number.className = "home-repo-number";
-    number.textContent = String(index + 1).padStart(2, "0");
-
-    const copy = document.createElement("div");
-    const title = document.createElement("h3");
-    title.textContent = repo.name;
-    const description = document.createElement("p");
-    description.textContent = repo.description || (isEnglishPage() ? "No description is available for this project." : "这个项目暂时没有填写说明。");
-    copy.append(title, description);
-
-    const meta = document.createElement("div");
-    meta.className = "home-repo-meta";
-    const language = document.createElement("span");
-    language.textContent = repo.language || (isEnglishPage() ? "Language not specified" : "未标注语言");
-    const updated = document.createElement("span");
-    updated.textContent = formatDate(repo.updated_at);
-    const link = document.createElement("a");
-    link.href = repo.html_url;
-    link.target = "_blank";
-    link.rel = "noreferrer";
-    link.textContent = isEnglishPage() ? "View ↗" : "查看 ↗";
-    meta.append(language, updated, link);
-
-    article.append(number, copy, meta);
-    list.append(article);
-  });
-}
-
-async function loadHomeRepos() {
-  const list = document.getElementById("home-repo-list");
-  const status = document.getElementById("home-repo-status");
-  if (!list || !status) return;
-
-  try {
-    const response = await fetch(`https://api.github.com/users/${GITHUB_USER}/repos?per_page=3&sort=updated`);
-    if (!response.ok) throw new Error(`GitHub API 请求失败: ${response.status}`);
-    renderHomeRepos(await response.json());
-  } catch (error) {
-    status.textContent = isEnglishPage() ? "Projects are temporarily unavailable. Please view them on GitHub." : "项目暂时无法读取，可前往 GitHub 查看。";
-    console.error(error);
-  }
-}
-
 async function loadReadmePage() {
   const title = document.getElementById("readme-title");
   const subtitle = document.getElementById("readme-subtitle");
@@ -293,7 +233,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   configureSharedNav();
   setActiveNav();
 
-  if (document.body.dataset.page === "home") loadHomeRepos();
   if (document.body.dataset.page === "projects") loadRepos();
   if (document.body.dataset.page === "readme") loadReadmePage();
 });
