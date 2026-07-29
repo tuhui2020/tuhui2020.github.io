@@ -27,10 +27,13 @@ a { color: inherit; }
 button, input { font: inherit; }
 .site-shell { width: min(calc(100% - 48px), var(--max-width)); margin: 0 auto; }
 
-.site-header {
+[data-include="nav"] {
   position: sticky;
   top: 0;
   z-index: 20;
+}
+
+.site-header {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
